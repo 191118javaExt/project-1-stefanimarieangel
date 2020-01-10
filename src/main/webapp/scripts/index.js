@@ -11,12 +11,14 @@ function sendLogin() {
 	xhr.onreadystatechange = function() {
 		if(this.readyState === 4 && this.status === 200) {
 			sessionStorage.setItem('currentUser', this.responseText);
-			window.location = "http://localhost:8080/ProjectMostFunnerestest/user/home.html";
+			console.log("Got Green liight")
+			window.location = "http://localhost:8080/project-1/home.main";
 		}
 		if(this.readyState === 4 && this.status === 204) {
 			alert("Failed to login! Username or password is incorrect.");
 		}
 	};
-	xhr.open("POST", "http://localhost:8080/ProjectMostFunnerestest/login");
+	console.log("Running post method")
+	xhr.open("POST", "http://localhost:8080/project-1/home.main"); 
 	xhr.send(JSON.stringify(loginTemplate));
 }

@@ -26,16 +26,17 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public List<Employee> findAll() {
+		System.out.println("in find all");
 		List<Employee> el = new ArrayList<>();
 		
 		try (Connection conn = ConnectionUtil.getConnection()) {
 		
-			String sql = "SELECT * FROM ERS_User";
-			
+			String sql = "SELECT * FROM ers_user";
+//			 where reimb_author = ? ((((((for Ssearching for reimbursements by author/user id number
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		
+//		stmt.setInt(1, reimb_author); tells string sql prepared statement to replace ? with set value.
 		ResultSet rs = stmt.executeQuery();
-		
+		while(rs.next()) {
 		int userId = rs.getInt("ers_user_id");
 		String username = rs.getString("ers_username");
 		String password = rs.getString("ers_password");
@@ -44,16 +45,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		String email = rs.getString("user_email");
 		int roleId = rs.getInt("user_role_id");
 		
+		
+		
+		
 		Employee e = new Employee(userId, username, password, firstName, lastName, email, roleId);
 		el.add(e);
+		
+		}
 		
 		rs.close();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
+		System.out.println(el);
 		return el;
 	}
-
 }

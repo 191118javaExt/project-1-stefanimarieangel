@@ -20,6 +20,8 @@ public class ConnectionUtil {
 		}
 
 		Properties props = new Properties();
+		
+		System.out.println(props);
 
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		Connection conn = null;
@@ -37,7 +39,7 @@ public class ConnectionUtil {
 		}
 
 		try {
-			conn.setSchema("project1");
+			conn.setSchema("project_1");
 		} catch (SQLException e) {
 			logger.warn("Unable to set Schema to project1");
 		}

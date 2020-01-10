@@ -1,6 +1,5 @@
 package com.revature.util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.models.Employee;
 import com.revature.models.EmployeeDTO;
-import com.revature.models.LoginTemplate;
 import com.revature.services.EmployeeServices;
 
 public class RequestHelper {
@@ -23,19 +21,25 @@ public class RequestHelper {
 	private static ObjectMapper om = new ObjectMapper();
 
 	public static void processLogin(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		BufferedReader reader = req.getReader();
-		StringBuilder s = new StringBuilder();
-		String line = reader.readLine();
-		while (line != null) {
-			s.append(line);
-			line = reader.readLine();
-		}
-		String body = s.toString();
-		System.out.println(body);
-		LoginTemplate loginAttempt = om.readValue(body, LoginTemplate.class);
-		String username = loginAttempt.getUsername();
-		String password = loginAttempt.getPassword();
-		logger.info("User attempted to login with username " + username);
+		
+		System.out.println("In requesthelper Processlogin");
+		String username=req.getParameter("username");
+		String password=req.getParameter("password");
+		
+		System.out.println(username + password);
+//		BufferedReader reader = req.getReader();
+//		StringBuilder s = new StringBuilder();
+//		String line = reader.readLine();
+//		while (line != null) {
+//			s.append(line);
+//			line = reader.readLine();
+//		}
+//		String body = s.toString();
+//		System.out.println(body);
+//		LoginTemplate loginAttempt = om.readValue(body, LoginTemplate.class);
+//		String username = loginAttempt.getUsername();
+//		String password = loginAttempt.getPassword();
+//		logger.info("User attempted to login with username " + username);
 		Employee e = EmployeeServices.confirmLogin(username, password);
 		if (e != null) {
 			HttpSession session = req.getSession();
@@ -45,6 +49,7 @@ public class RequestHelper {
 			res.setContentType("application/json");
 			EmployeeDTO eDTO = EmployeeServices.convertToDTO(e);
 			out.println(om.writeValueAsString(eDTO));
+			
 			logger.info(username + " has successfully logged in");
 		} else {
 			res.setContentType("application/json");

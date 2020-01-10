@@ -20,11 +20,16 @@ public class EmployeeServices {
 		return null;
 	}
 	public static Employee confirmLogin(String username, String password) {
+		System.out.println("in here");
 		Employee e = findByUsername(username);
 		if(e == null) {
+			System.out.println("return null");
 			return null;
+		
 		}
+		
 		if(e.getPassword().equals(password)) {
+			System.out.println("found employee");
 			return e;
 		} else {
 			return null;
