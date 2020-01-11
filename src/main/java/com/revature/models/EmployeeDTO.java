@@ -12,7 +12,6 @@ public class EmployeeDTO implements Serializable {
 	private String lastName;
 	private String username;
 	private String password;
-
 	private String hireDate;
 
 	public EmployeeDTO() {

@@ -1,7 +1,6 @@
 package com.revature.web;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,8 @@ public class FrontController extends HttpServlet {
 		case "login.main":
 			System.out.println("in login.main FC");
 			RequestHelper.processLogin(req, res);
+			System.out.println(URI);
+			//res.sendRedirect("home.html");
 			break;
 		case "logout.main":
 			RequestHelper.processLogout(req, res);
